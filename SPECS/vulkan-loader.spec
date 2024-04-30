@@ -1,13 +1,11 @@
 Name:           vulkan-loader
-Version:        1.3.250.1
+Version:        1.3.268.0
 Release:        1%{?dist}
 Summary:        Vulkan ICD desktop loader
 
 License:        ASL 2.0
 URL:            https://github.com/KhronosGroup/Vulkan-Loader
-Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-Loader-sdk-%{version}.tar.gz       
-
-Patch0: add-notes.patch
+Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Loader-sdk-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -54,7 +52,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n Vulkan-Loader-sdk-%{version}
+%autosetup -p1 -n Vulkan-Loader-vulkan-sdk-%{version}
 
 
 %build
@@ -90,9 +88,13 @@ mkdir -p %{buildroot}%{_sysconfdir}/vulkan/{explicit,implicit}_layer.d/ \
 %files devel
 %{_libdir}/pkgconfig/vulkan.pc
 %{_libdir}/*.so
+%{_libdir}/cmake/VulkanLoader/*.cmake
 
 
 %changelog
+* Wed Jan 17 2024 José Expósito <jexposit@redhat.com> - 1.3.268.0-1
+- Update to 1.3.268.0 SDK
+
 * Thu Jul 06 2023 Dave Airlie <airlied@redhat.com> - 1.3.250.1-1
 - Update to 1.3.250.1
 
