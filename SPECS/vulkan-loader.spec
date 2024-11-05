@@ -1,18 +1,15 @@
 Name:           vulkan-loader
-Version:        1.3.250.1
+Version:        1.3.283.0
 Release:        1%{?dist}
 Summary:        Vulkan ICD desktop loader
 
 License:        ASL 2.0
 URL:            https://github.com/KhronosGroup/Vulkan-Loader
-Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-Loader-sdk-%{version}.tar.gz       
-
-# hard code adding notes to the one asm file compilation.
-Patch1: add-notes.patch
+Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Loader-sdk-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
+BuildRequires:  cmake3
 BuildRequires:  ninja-build
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  vulkan-headers = %{version}
@@ -55,16 +52,16 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n Vulkan-Loader-sdk-%{version} -p1
+%autosetup -p1 -n Vulkan-Loader-vulkan-sdk-%{version}
 
 
 %build
-%cmake -GNinja -DCMAKE_BUILD_TYPE=Release .
-%ninja_build
+%cmake3 -GNinja -DCMAKE_BUILD_TYPE=Release
+%cmake_build
 
 
 %install
-%ninja_install
+%cmake_install
 
 # create the filesystem
 mkdir -p %{buildroot}%{_sysconfdir}/vulkan/{explicit,implicit}_layer.d/ \
@@ -91,9 +88,13 @@ mkdir -p %{buildroot}%{_sysconfdir}/vulkan/{explicit,implicit}_layer.d/ \
 %files devel
 %{_libdir}/pkgconfig/vulkan.pc
 %{_libdir}/*.so
-
+%{_libdir}/cmake/VulkanLoader/*.cmake
 
 %changelog
+* Tue Sep 10 2024 José Expósito <jexposit@redhat.com> - 1.3.283.0-1
+- Update to 1.3.283.0 SDK
+  Resolves: https://issues.redhat.com/browse/RHEL-54287
+
 * Wed Jul 12 2023 Dave Airlie <airlied@redhat.com> - 1.3.250.1-1
 - Update to 1.3.250.1
 
