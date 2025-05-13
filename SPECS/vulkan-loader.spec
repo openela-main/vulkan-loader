@@ -1,5 +1,5 @@
 Name:           vulkan-loader
-Version:        1.3.283.0
+Version:        1.4.304.0
 Release:        1%{?dist}
 Summary:        Vulkan ICD desktop loader
 
@@ -88,9 +88,13 @@ mkdir -p %{buildroot}%{_sysconfdir}/vulkan/{explicit,implicit}_layer.d/ \
 %files devel
 %{_libdir}/pkgconfig/vulkan.pc
 %{_libdir}/*.so
+%dir %{_libdir}/cmake/VulkanLoader/
 %{_libdir}/cmake/VulkanLoader/*.cmake
 
 %changelog
+* Mon Jan 20 2025 José Expósito <jexposit@redhat.com> - 1.4.304.0-1
+- Update to 1.4.304.0 SDK
+
 * Tue May 28 2024 José Expósito <jexposit@redhat.com> - 1.3.283.0-1
 - Update to 1.3.283.0 SDK
 
